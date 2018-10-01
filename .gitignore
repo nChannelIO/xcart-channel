@@ -1,0 +1,6 @@
+.idea
+.vs
+.vscode
+coverage
+.nyc_output
+node_modules
