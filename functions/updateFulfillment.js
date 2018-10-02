@@ -1,12 +1,10 @@
 "use strict";
 
 module.exports = function(flowContext, payload) {
-  payload.doc.tracking_id = payload.fulfillmentRemoteID;
-
   let options = {
     uri: `${this.baseUri}?target=RESTAPI&_key=${
       this.channelProfile.channelAuthValues.apiKey
-    }&_path=ordertrackingnumber/${payload.doc.tracking_id}`,
+    }&_path=ordertrackingnumber/${payload.fulfillmentRemoteID}`,
     method: "PUT",
     body: payload.doc,
     resolveWithFullResponse: true
