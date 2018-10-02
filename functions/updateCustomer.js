@@ -1,15 +1,11 @@
 "use strict";
 
 module.exports = function(flowContext, payload) {
-  payload.doc.profile_id = payload.customerRemoteID;
-
   let requestBody = JSON.parse(JSON.stringify(payload.doc));
   delete requestBody.addresses;
 
   let options = {
-    uri: `${this.baseUri}?target=RESTAPI&_key=${this.channelProfile.channelAuthValues.apiKey}&_path=profile/${
-      payload.doc.profile_id
-    }`,
+    uri: `${this.baseUri}?target=RESTAPI&_key=${this.channelProfile.channelAuthValues.apiKey}&_path=profile/${payload.customerRemoteID}`,
     method: "PUT",
     body: requestBody,
     resolveWithFullResponse: true
@@ -19,6 +15,7 @@ module.exports = function(flowContext, payload) {
 
   return this.request(options)
     .then(response => {
+      response.body.addresses = payload.doc.addresses;
       return {
         endpointStatusCode: response.statusCode,
         statusCode: 200,

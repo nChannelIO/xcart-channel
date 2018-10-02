@@ -15,6 +15,7 @@ module.exports = function(flowContext, payload) {
 
   return this.request(options)
     .then(response => {
+      response.body.addresses = payload.doc.addresses;
       return {
         endpointStatusCode: response.statusCode,
         statusCode: 201,
